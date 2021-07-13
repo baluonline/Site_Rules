@@ -60,10 +60,8 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect(
-    'url'
-  )
+  .connect("mongodb+srv://newuser:SxT3jpNzP7qjz2Jw@cluster0.bykdf.mongodb.net/shop?retryWrites=true")
   .then(result => {
-    app.listen(8080);
+    app.listen(4000);
   })
   .catch(err => console.log(err));
