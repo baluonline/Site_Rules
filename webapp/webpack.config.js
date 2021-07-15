@@ -1,5 +1,5 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 // const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const webpack = require("webpack");
 const extractSass = new ExtractTextPlugin({
@@ -11,11 +11,11 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx"],
   },
-  /*   entry: {
-    app: './src/index.js'
+  entry: {
+    app: "./src/index.js",
   },
-  output: {
-    filename: '[name].[hash].js'
+ /*  output: {
+    filename: "[name].[hash].js",
   }, */
   module: {
     rules: [
@@ -108,7 +108,7 @@ module.exports = {
     // new ExtractTextPlugin('[name].[hash].css'),
     new HtmlWebPackPlugin({
       template: "./public/index.html",
-      filename: "./index.html",
+      filename: "index.html",
       favicon: "./public/logo.png",
     }),
     /*   new CleanWebpackPlugin(),

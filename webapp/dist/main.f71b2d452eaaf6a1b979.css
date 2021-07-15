@@ -1,0 +1,61 @@
+body {
+  color: #5a6169;
+  background-color: honeydew; }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #212529; }
+
+h1 {
+  font-size: 34px; }
+
+a {
+  color: #0067f4; }
+
+.welcome {
+  font-size: 24px;
+  margin-bottom: 20px; }
+
+.bg-demo {
+  background: url(src/components/category-component/sun-2743df77.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: whitesmoke;
+  width: 250px;
+  height: 250px; }
+
+#bb-header {
+  background: rgba(18, 33, 56, 0.85) !important; }
+  #bb-header .navbar-brand {
+    color: white; }
+
+#header-title {
+  font-size: x-large;
+  font-style: normal; }
+
+.navbar-nav li {
+  font-size: larger;
+  font-weight: 600;
+  margin-inline: 10px;
+  color: white;
+  margin-top: 0px; }
+
+#bb-logo {
+  height: 3em; }
+
+#bb-home-bg-image {
+  background-image: url("https://mdbootstrap.com/img/new/slides/041.jpg");
+  height: 100vh;
+  background-repeat: no-repeat; }
+
+.shopping-cards {
+  min-height: 6em;
+  max-height: 2em; }
+
+.form-group.required .control-label:after {
+  content: "*";
+  color: red; }

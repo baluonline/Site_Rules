@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon app.js",
-    "client": "npm start --prefix web-app",
+    "client": "npm start --prefix webapp",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Balaji",
