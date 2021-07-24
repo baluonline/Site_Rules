@@ -59,7 +59,10 @@ exports.login = (req, res, next) => {
                 userId: loadUser._id.toString()
             }, 'somesupersecretsecret',
                 { expiresIn: '1h' })
-            res.status(200).json({token:token,userId:loadUser._id.toString()})
+            res.status(200).json({
+                success:true,
+                message:null,
+                token:token,userId:loadUser._id.toString()})
         })
 
         .catch(err => {

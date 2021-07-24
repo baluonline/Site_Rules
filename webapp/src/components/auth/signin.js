@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Mailbox } from "react-bootstrap-icons";
+
+import userAuth from "../_actions/userAuth";
+import { fetchUsers } from "../_actions/fetchUser";
+import login from "../../images/ForLogin.png";
 const Signin = () => {
   const [inputs, setInputs] = useState({
     username: "",
@@ -7,6 +13,7 @@ const Signin = () => {
   });
   const [submitted, setSubmitted] = useState(false);
   const { username, password } = inputs;
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,29 +22,50 @@ const Signin = () => {
   const handleSign = (e) => {
     e.preventDefault();
     setSubmitted(true);
+    userAuth(username, password).then((resp) => {
+      dispatch({ type: resp.type, payload: resp.payload });
+      setInputs((inputs) => ({ ...inputs, username: "" }));
+      setInputs((inputs) => ({ ...inputs, password: "" }));
+    });
   };
   return (
-    <div>
-      <form name="form" onSubmit={handleSign}>
-        <h3>Signin</h3>
-        <div className="form-group">
-          <label>User name</label>
+    <div className="col-12 signin-page">
+      <img className="col-6 forlogin-img" src={login} alt="For Login" />
+      <div className="col-1"></div>
+      <form
+        name="form"
+        className="col-3 signin-container"
+        onSubmit={(e) =>
+          handleSign(e, {
+            username,
+            password,
+          })
+        }
+      >
+        <h3 className="col-12">Signin</h3>
+        <div className="input-group mb-10">
           <input
             type="text"
             name="username"
             value={username}
             onChange={handleChange}
             className={
-              "form-control" + (submitted && !username ? "is-invalid" : "")
+              "signin-inputs form-control " +
+              (submitted && !username ? "is-invalid" : "")
             }
-            placeholder="Please enter your username"
+            placeholder="Username/Email"
           />
+          <div className="input-group-append">
+            <span className="input-group-text">
+              <i className="fa fa-user-circle-o"></i>
+            </span>
+          </div>
           {submitted && !username && (
             <div className="invalid-feedback">Username is required</div>
           )}
         </div>
-        <div className="form-group">
-          <label>Password</label>
+
+        <div className="input-group">
           <input
             type="password"
             name="password"
@@ -45,20 +73,30 @@ const Signin = () => {
             value={password}
             onChange={handleChange}
             className={
-              "form-control" + (submitted && !password ? " is-invalid" : "")
+              "signin-inputs form-control" +
+              (submitted && !password ? " is-invalid" : "")
             }
-          />
+          ></input>
+          <div className="input-group-append">
+            <span className="input-group-text">
+              <i className="fa fa-lock"></i>
+            </span>
+          </div>
           {submitted && !password && (
             <div className="invalid-feedback">Password is required</div>
           )}
         </div>
-        <div className="form-group">
-          <button className="btn btn-primary">Login</button>
-          <Link to="/signup" className="btn btn-link">
-            Signup
+        <div className="form-group login-button-container col-12">
+          <button className="btn btn-primary col-10 login-btn">Login</button>
+        </div>
+        <div className="col-12 form-group login-button-container">
+          Note a member?
+          <Link to="/signup" style={{ textDecoration: "none", color: "blue" }}>
+             Signup
           </Link>
         </div>
       </form>
+      <div className="col-1"></div>
     </div>
   );
 };

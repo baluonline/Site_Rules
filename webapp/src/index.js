@@ -4,7 +4,8 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 // import { composeWithDevTools } from "redux-devtools-extension";
 
-import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap/dist/css/bootstrap.css";
+
 import "../src/styles/styles.scss";
 
 import Home from "./components/home";

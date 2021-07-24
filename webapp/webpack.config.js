@@ -14,7 +14,7 @@ module.exports = {
   entry: {
     app: "./src/index.js",
   },
- /*  output: {
+  /*  output: {
     filename: "[name].[hash].js",
   }, */
   module: {
@@ -24,6 +24,10 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
+          options: {
+            cacheDirectory: true,
+            plugins: ["@babel/plugin-transform-runtime"],
+          },
         },
       },
       {
@@ -99,6 +103,7 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
+    port: 4001,
     /*    contentBase: './dist',
     historyApiFallback: true,
     hot: true */

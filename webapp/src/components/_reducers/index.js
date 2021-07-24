@@ -1,18 +1,11 @@
-/* import { combineReducers } from "redux";
+import { combineReducers } from "redux";
 
-import {productRegistration}  from "./productsReducers";
-
-export default rootReducer = combineReducers({
-  product: productRegistration,
-});
- */
-
-import { combineReducers } from 'redux';
-
-import { productRegistration } from './productsReducers'
+import { productRegistration } from "./productsReducers";
+import { userAuth } from "./userReducers";
 
 const rootReducer = combineReducers({
   productRegistration,
-  });
+  userAuth,
+});
 
 export default rootReducer;

@@ -1,6 +1,12 @@
+$theme-colors: (
+    "primary": #000000,
+    "danger": #ff4136,
+);
+@import "..//../node_modules/bootstrap/scss/bootstrap";
+
 @import "/_colors.scss";
 body {
-    color: $body-text;
+    color: black;
     background-color: honeydew;
 }
 
@@ -10,7 +16,7 @@ h3,
 h4,
 h5,
 h6 {
-    color: $heading-text;
+    color: black;
 }
 
 h1 {
@@ -70,6 +76,32 @@ a {
     max-height: 2em;
 }
 .form-group.required .control-label:after {
-    content:"*";
-    color:red;
-  }
+    content: "*";
+    color: $danger;
+}
+.signin-page {
+    display: flex;
+    justify-content: center;
+    .forlogin-img {
+        margin-left: -12em;
+        height: 84vh;
+    }
+    .input-group {
+        margin-bottom: 30px;
+    }
+    .signin-container {
+        .login-button-container {
+            display: flex;
+            justify-content: center;
+            .login-btn {
+                border: 1px solid;
+                border-radius: 35px;
+            }
+        }
+    }
+}
+.form-group .signin-inputs {
+    border: 0;
+}
+
+
