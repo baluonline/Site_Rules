@@ -2,6 +2,7 @@ import { userConstants } from "../_constants";
 
 const initialState = {
   userToken: null,
+  userId: null,
 };
 export function userAuth(state = initialState, action) {
   switch (action.type) {
@@ -9,6 +10,11 @@ export function userAuth(state = initialState, action) {
       return {
         ...state,
         userToken: action.payload,
+      };
+    case userConstants.USER_ID:
+      return {
+        ...state,
+        userId: action.payload,
       };
     default:
       return state;

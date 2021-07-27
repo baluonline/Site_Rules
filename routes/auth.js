@@ -4,7 +4,7 @@ const User = require('../models/user')
 const authController = require('../controllers/auth')
 const { body } = require('express-validator/check');
 
-router.put('/signup', [
+router.post('/signup', [
     body('email').isEmail().withMessage('Please enter valid email address')
         .custom((value, { req }) => {
             return User.findOne({ email: value }).then(userDoc => {

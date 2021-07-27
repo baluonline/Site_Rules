@@ -82,6 +82,14 @@ a {
 .signin-page {
     display: flex;
     justify-content: center;
+    .signin-banner {
+        justify-content: center;
+        display: flex;
+        font-family: ui-rounded;
+        margin-bottom: 30px;
+        margin-top: 20px;
+        margin-top: 20px;
+    }
     .forlogin-img {
         margin-left: -12em;
         height: 84vh;
@@ -90,6 +98,10 @@ a {
         margin-bottom: 30px;
     }
     .signin-container {
+        border: 1px solid;
+        border-radius: 23px;
+        height: 75vh;
+        margin-top: 12px;
         .login-button-container {
             display: flex;
             justify-content: center;
@@ -103,5 +115,33 @@ a {
 .form-group .signin-inputs {
     border: 0;
 }
-
-
+.signup-page {
+    font-family: "Open Sans", sans-serif;
+    margin-left: -14px;
+    margin-right: -14px;
+    padding-bottom: 6em;
+    display: flex;
+    justify-content: center;
+    .signup-form {
+        border-radius: 2px 2px 5px 5px;
+        padding: 10px 20px 20px 20px;
+        width: 90%;
+        max-width: 320px;
+        margin-top: 10px;
+        background: #ffffff;
+        position: relative;
+        // padding-bottom: 80px;
+        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+    }
+    .input-group {
+        margin-bottom: 30px;
+    }
+    .signup-btn-container {
+        display: flex;
+        justify-content: center;
+        .signup-btn {
+            border: 1px solid;
+            border-radius: 35px;
+        }
+    }
+}

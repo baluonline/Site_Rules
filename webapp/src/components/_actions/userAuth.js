@@ -4,7 +4,7 @@ import axios from "axios";
 const basePath = "http://localhost:4000/auth/";
 const initialState = { userToken: null };
 
-const userAuth = (username, password) => {
+export const userAuth = (username, password) => {
   return axios
     .put(
       basePath + "login",
@@ -20,16 +20,40 @@ const userAuth = (username, password) => {
       }
     )
     .then((res) => {
-      localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId", res.data.userId);
-      console.log(res.data.token);
-      return { type: userConstants.USER_TOKEN, payload: res.data.token };
+      return { type: userConstants.USER_ID, payload: res.data.userId };
     })
     .catch((err) => {
-      localStorage.setItem("token", null);
       localStorage.setItem("userId", null);
-      console.log(err);
+      return { type: userConstants.USER_ID, payload: null };
     });
 };
 
-export default userAuth;
+export const userSignup = (signupData) => {
+  return new Promise((resolve, reject) => {
+    return axios
+      .post(
+        basePath + "signup",
+        {
+          email: signupData.email,
+          password: signupData.password,
+          name: signupData.name,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then((res) => {
+        localStorage.setItem("userId", res.data.userId);
+        return { type: userConstants.USER_ID, payload: res.data.userId };
+      })
+      .catch((err) => {
+        localStorage.setItem("userId", null);
+        reject(err);
+        console.log(err);
+      });
+  });
+};

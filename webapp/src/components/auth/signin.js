@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory  } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Mailbox } from "react-bootstrap-icons";
 
-import userAuth from "../_actions/userAuth";
+import {userAuth} from "../_actions/userAuth";
 import { fetchUsers } from "../_actions/fetchUser";
 import login from "../../images/ForLogin.png";
+
 const Signin = () => {
   const [inputs, setInputs] = useState({
     username: "",
@@ -14,6 +14,7 @@ const Signin = () => {
   const [submitted, setSubmitted] = useState(false);
   const { username, password } = inputs;
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,6 +27,7 @@ const Signin = () => {
       dispatch({ type: resp.type, payload: resp.payload });
       setInputs((inputs) => ({ ...inputs, username: "" }));
       setInputs((inputs) => ({ ...inputs, password: "" }));
+      history.push("/products")
     });
   };
   return (
@@ -34,7 +36,7 @@ const Signin = () => {
       <div className="col-1"></div>
       <form
         name="form"
-        className="col-3 signin-container"
+        className="col-4 signin-container"
         onSubmit={(e) =>
           handleSign(e, {
             username,
@@ -42,7 +44,12 @@ const Signin = () => {
           })
         }
       >
-        <h3 className="col-12">Signin</h3>
+        <div className="row">
+          <h3 className="col-11 signin-banner">Signin</h3>
+          <Link to="/signup" className="col-1 mt-1">
+            <i className=" fa fa-times-circle" aria-hidden="true"></i>
+          </Link>
+        </div>
         <div className="input-group mb-10">
           <input
             type="text"
@@ -90,9 +97,9 @@ const Signin = () => {
           <button className="btn btn-primary col-10 login-btn">Login</button>
         </div>
         <div className="col-12 form-group login-button-container">
-          Note a member?
+          Not a member?
           <Link to="/signup" style={{ textDecoration: "none", color: "blue" }}>
-             Signup
+            Signup
           </Link>
         </div>
       </form>

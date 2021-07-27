@@ -1,122 +1,169 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import signup from "..//..//images/signup.jpg";
+
+import { userSignup } from "../_actions/userAuth";
 
 const Signup = () => {
   const [inputs, setInputs] = useState({
     fullname: "",
     emailAddress: "",
-    username: "",
     password: "",
     confirmPassword: "",
   });
   const [submitted, setSubmitted] = useState(false);
-  const { fullname, emailAddress, username, password, confirmPassword } =
-    inputs;
+  const [enabledSubmitted, setEnabledSubmitted] = useState(false);
+  const [signupError, setSignupError] = useState(null);
+
+  const { fullname, emailAddress, password, confirmPassword } = inputs;
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInputs((inputs) => ({ ...inputs, [name]: value }));
   };
-  const checkUserName = (username) => {
-    return username.lenght >= 8;
-  };
   const checkPassword = (password) => {
-    return password.lenght >= 8;
+    if (password.lenght >= 8) {
+      setEnabledSubmitted(true);
+      return true;
+    } else {
+      setEnabledSubmitted(false);
+      return false;
+    }
   };
-  const checkConfirmPassword = (confirmPassword, password) => {
-    return password.lenght >= 8 && confirmPassword === password;
-  };
+  /*   const checkConfirmPassword = (confirmPassword, password) => {
+    if (password.lenght >= 8 && confirmPassword === password) {
+      setEnabledSubmitted(true);
+      return true;
+    } else {
+      setEnabledSubmitted(false);
+      return false;
+    }
+  }; */
+
   const handleSignup = (e) => {
     e.preventDefault();
+    const data = {
+      email: emailAddress,
+      password: password,
+      name: fullname,
+    };
     setSubmitted(true);
+    userSignup(data)
+      .then((resp) => {
+        dispatch({ type: resp.type, payload: resp.payload });
+        setInputs((inputs) => ({ ...inputs, fullname: "" }));
+        setInputs((inputs) => ({ ...inputs, emailAddress: "" }));
+        setInputs((inputs) => ({ ...inputs, password: "" }));
+        history.push("/products");
+      })
+      .catch((err) => {
+        console.log("signup failed" + err);
+        setSignupError(err.response.data.message);
+      });
   };
 
   return (
-    <div>
-      <form name="form" onSubmit={handleSignup}>
-        <h3>Sign up form here </h3>
-        <div className="form-group">
-          <label>Full Name</label>
+    <div
+      className="signup-page"
+      style={{
+        background: `url(${signup})`,
+      }}
+    >
+      <form name="form" className="col-4 signup-form" onSubmit={handleSignup}>
+        {signupError ? (
+          <div className="alert alert-danger" role="alert">
+            <p className="col-12">Error message : {signupError}</p>
+          </div>
+        ) : (
+          ""
+        )}
+        <p className="title font-weight-bold">Sign up form here</p>
+        <div className="input-group mb-10">
           <input
             type="text"
             name="fullname"
+            placeholder="Full Name"
             value={fullname}
             onChange={handleChange}
             className={
               "form-control" + (submitted && !fullname ? "is-invalid" : "")
             }
-            placeholder="Please enter your full name"
           />
+          <div className="input-group-append">
+            <span className="input-group-text">
+              <i className="fa fa-user-plus" aria-hidden="true"></i>
+            </span>
+          </div>
         </div>
-        <div className="form-group required">
-          <label className="control-label">Email Address</label>
+        <div className="input-group required">
           <input
             type="email"
             name="emailAddress"
+            placeholder="Email Address"
             value={emailAddress}
             onChange={handleChange}
             className={
               "form-control" + (submitted && !emailAddress ? "is-invalid" : "")
             }
-            placeholder="Please enter your email address"
           />
+          <div className="input-group-append">
+            <span className="input-group-text">
+              <i className="fa fa-envelope" aria-hidden="true"></i>
+            </span>
+          </div>
         </div>
-        <div className="form-group required">
-          <label className="control-label">User Name</label>
+        <div className="input-group required">
           <input
-            type="text"
-            name="username"
-            value={username}
-            onChange={handleChange}
-            className={
-              "form-control" +
-              (submitted && !checkUserName(username) ? "is-invalid" : "")
-            }
-            placeholder="Please enter your user name"
-          />
-        </div>
-        <div className="form-group required">
-          <label className="control-label">Password</label>
-          <input
-            type="text"
+            type="password"
             name="password"
             value={password}
             onChange={handleChange}
+            placeholder="Password"
             className={
-              "form-control" +
-              (submitted && !checkPassword(password) ? "is-invalid" : "")
+              "form-control" + (submitted && !password ? "is-invalid" : "")
             }
-            placeholder="Please enter your password"
           />
-          {submitted && !checkUserName(password) && (
-            <div className="invalid-feedback">
-              Password should contain at least 8 chars
-            </div>
+          <div className="input-group-append">
+            <span className="input-group-text">
+              <i className="fa fa-lock" aria-hidden="true"></i>
+            </span>
+          </div>
+          {submitted && !password && (
+            <div className="invalid-feedback">Password is required</div>
           )}
         </div>
-        <div className="form-group required">
-          <label className="control-label">Confirm Password</label>
+        <div className="input-group required">
           <input
-            type="text"
+            type="password"
             name="confirmPassword"
+            placeholder="Confirm Password"
             value={confirmPassword}
             onChange={handleChange}
             className={
               "form-control" +
-              (submitted && !checkPassword(confirmPassword) ? "is-invalid" : "")
+              (submitted && !confirmPassword ? "is-invalid" : "")
             }
-            placeholder="Confirm your password"
           />
-          {submitted && !checkConfirmPassword(confirmPassword, password) && (
-            <div className="invalid-feedback">
-              Confirm password should match with password
-            </div>
+          <div className="input-group-append">
+            <span className="input-group-text">
+              <i className="fa fa-lock" aria-hidden="true"></i>
+            </span>
+          </div>
+          {submitted && !password && (
+            <div className="invalid-feedback">Password is required</div>
           )}
         </div>
-        <div className="form-group">
-          <button className="btn btn-primary">Submit</button>
-          
-          <Link to="/signin" className="btn btn-link">
+        <div className=" col-12 form-group signup-btn-container">
+          <button className="col-10 btn btn-primary signup-btn" type="submit">
+            Submit
+          </button>
+        </div>
+        <div className=" col-12 form-group signup-btn-container">
+          Already a member?
+          <Link to="/signin" style={{ textDecoration: "none", color: "blue" }}>
             Signin
           </Link>
         </div>
