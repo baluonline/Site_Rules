@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Link, useHistory  } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import {userAuth} from "../_actions/userAuth";
+import { userAuth } from "../_actions/userAuth";
 import { fetchUsers } from "../_actions/fetchUser";
 import login from "../../images/ForLogin.png";
 
@@ -12,6 +12,7 @@ const Signin = () => {
     password: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [signinError, setSigninError] = useState(null);
   const { username, password } = inputs;
   const dispatch = useDispatch();
   const history = useHistory();
@@ -23,12 +24,17 @@ const Signin = () => {
   const handleSign = (e) => {
     e.preventDefault();
     setSubmitted(true);
-    userAuth(username, password).then((resp) => {
-      dispatch({ type: resp.type, payload: resp.payload });
-      setInputs((inputs) => ({ ...inputs, username: "" }));
-      setInputs((inputs) => ({ ...inputs, password: "" }));
-      history.push("/products")
-    });
+    userAuth(username, password)
+      .then((resp) => {
+        dispatch({ type: resp.type, payload: resp.payload });
+        setInputs((inputs) => ({ ...inputs, username: "" }));
+        setInputs((inputs) => ({ ...inputs, password: "" }));
+        history.push("/products");
+      })
+      .catch((err) => {
+        console.log("signin failed" + err);
+        setSigninError(err.response.data.message);
+      });
   };
   return (
     <div className="col-12 signin-page">
@@ -49,6 +55,15 @@ const Signin = () => {
           <Link to="/signup" className="col-1 mt-1">
             <i className=" fa fa-times-circle" aria-hidden="true"></i>
           </Link>
+          {signinError ? (
+            <div className="col-12">
+              <div className="alert alert-danger" role="alert">
+                <p className="col-10">Error message : {signinError}</p>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
         <div className="input-group mb-10">
           <input

@@ -5,28 +5,32 @@ const basePath = "http://localhost:4000/auth/";
 const initialState = { userToken: null };
 
 export const userAuth = (username, password) => {
-  return axios
-    .put(
-      basePath + "login",
-      {
-        email: username,
-        password: password,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
+  return new Promise((resolve, reject) => {
+    return axios
+      .put(
+        basePath + "login",
+        {
+          email: username,
+          password: password,
         },
-      }
-    )
-    .then((res) => {
-      localStorage.setItem("userId", res.data.userId);
-      return { type: userConstants.USER_ID, payload: res.data.userId };
-    })
-    .catch((err) => {
-      localStorage.setItem("userId", null);
-      return { type: userConstants.USER_ID, payload: null };
-    });
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then((res) => {
+        localStorage.setItem("userId", res.data.userId);
+        resolve({ type: userConstants.USER_ID, payload: res.data.userId });
+        // return ;
+      })
+      .catch((err) => {
+        localStorage.setItem("userId", null);
+        reject(err);
+        return { type: userConstants.USER_ID, payload: null };
+      });
+  });
 };
 
 export const userSignup = (signupData) => {
