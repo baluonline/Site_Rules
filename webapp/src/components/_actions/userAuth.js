@@ -22,11 +22,13 @@ export const userAuth = (username, password) => {
       )
       .then((res) => {
         localStorage.setItem("userId", res.data.userId);
+        localStorage.setItem("token", res.data.token);
         resolve({ type: userConstants.USER_ID, payload: res.data.userId });
         // return ;
       })
       .catch((err) => {
-        localStorage.setItem("userId", null);
+        localStorage.removeItem("userId");
+        localStorage.removeItem("token");
         reject(err);
         return { type: userConstants.USER_ID, payload: null };
       });

@@ -71,7 +71,7 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    "mongodb+srv://newuser:SxT3jpNzP7qjz2Jw@cluster0.bykdf.mongodb.net/shop?retryWrites=true"
+    "mongodb+srv://newuser:SxT3jpNzP7qjz2Jw@cluster0.bykdf.mongodb.net/pms?retryWrites=true"
   )
   .then((result) => {
     app.listen(4000);

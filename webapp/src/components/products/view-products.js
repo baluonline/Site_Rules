@@ -1,10 +1,22 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "../_actions/product.actions";
 
 const ViewProducts = () => {
   const products = useSelector((state) => state.productRegistration.products);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    console.log("products" + JSON.stringify(products));
+    const token = localStorage.getItem("token");
+    console.log(token + "token is here");
+    fetchProducts(token)
+      .then((resp) => {
+        dispatch({ type: resp.type, payload: resp.payload });
+      })
+      .catch((err) => {
+        console.log("no products");
+        dispatch({ type: err.type, payload: err.payload });
+      });
   }, []);
   const ProductsList = ({ products }) => {
     // const elements = ["one", "two", "three"];

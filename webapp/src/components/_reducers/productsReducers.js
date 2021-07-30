@@ -10,6 +10,11 @@ export function productRegistration(state = initialState, action) {
         ...state,
         products: state.products.concat(action.payload),
       };
+    case productsConstants.FETCH_PRODUCTS:
+      return {
+        ...state,
+        products: state.products.concat(action.payload),
+      };
     default:
       return state;
   }

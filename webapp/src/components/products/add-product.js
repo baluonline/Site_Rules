@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { registerProduct } from "../_actions/product.actions";
+// import { registerProduct } from "../_actions/product.actions";
 const AddProduct = () => {
   const [product, setProduct] = useState({
     title: "",
@@ -20,7 +20,7 @@ const AddProduct = () => {
     e.preventDefault();
     setSubmitted(true);
     if (product.title && product.description && product.price) {
-      dispatch(registerProduct(product));
+      // dispatch(registerProduct(product));
     }
   };
   return (
