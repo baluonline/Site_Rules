@@ -2,6 +2,7 @@ import { productsConstants } from "../_constants";
 
 const initialState = {
   products: [],
+  registeredProductSuccess:false
 };
 export function productRegistration(state = initialState, action) {
   switch (action.type) {
@@ -13,7 +14,12 @@ export function productRegistration(state = initialState, action) {
     case productsConstants.FETCH_PRODUCTS:
       return {
         ...state,
-        products: state.products.concat(action.payload),
+        products: action.payload,
+      };
+    case productsConstants.REGISTER_SUCCESS:
+      return {
+        ...state,
+        registeredProductSuccess: action.payload,
       };
     default:
       return state;

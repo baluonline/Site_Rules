@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import { registerProduct } from "../_actions/product.actions";
+import { registerProduct } from "../_actions/product.actions";
+
 const AddProduct = () => {
   const [product, setProduct] = useState({
     title: "",
@@ -11,6 +12,11 @@ const AddProduct = () => {
   });
   const [submitted, setSubmitted] = useState(false);
   const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    console.log(token + "token is here");
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,7 +26,15 @@ const AddProduct = () => {
     e.preventDefault();
     setSubmitted(true);
     if (product.title && product.description && product.price) {
-      // dispatch(registerProduct(product));
+      const data = {
+        product,
+        token: token,
+      };
+      registerProduct(data)
+        .then((resp) => {
+          console.log(resp);
+        })
+        .catch((err) => console.log(err));
     }
   };
   return (
@@ -32,7 +46,7 @@ const AddProduct = () => {
           <input
             type="text"
             name="title"
-            value={product.title || ''}
+            value={product.title || ""}
             onChange={handleChange}
             className={
               "form-control" +
@@ -84,7 +98,7 @@ const AddProduct = () => {
           <input
             type="text"
             name="price"
-            value={product.price || "" }
+            value={product.price || ""}
             onChange={handleChange}
             className={
               "form-control" +

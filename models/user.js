@@ -18,9 +18,9 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    posts: [{
+    products: [{
         type: Schema.Types.ObjectId,
-        ref: 'Post'
+        ref: 'Product'
     }]
 
 

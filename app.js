@@ -1,6 +1,7 @@
 const path = require("path");
 const express = require("express");
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser')
+const jsonParser = bodyParser.json();
 const mongoose = require("mongoose");
 const multer = require("multer");
 const cors = require("cors");
@@ -34,7 +35,8 @@ const fileFilter = (req, file, cb) => {
 };
 
 // app.use(bodyParser.urlencoded()); // x-www-form-urlencoded <form>
-app.use(bodyParser.json()); // application/json
+app.use(express.json());
+// app.use(bodyParser.json()); // application/json
 app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
 );

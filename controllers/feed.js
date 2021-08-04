@@ -35,54 +35,60 @@ exports.getProducts = (req, res, next) => {
     });
 };
 
-exports.createPost = (req, res, next) => {
-  const errors = validationResult(req);
+exports.addProduct = (req, res, next) => {
+  /* const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const error = new Error("Validation failed, entered data is incorrect.");
     error.statusCode = 422;
     throw error;
-  }
-  if (!req.file) {
+  } */
+  /*  if (!req.file) {
     const error = new Error("No image provided.");
     error.statusCode = 422;
     throw error;
-  }
-  const imageUrl = req.file.path.replace("\\", "/");
+  } */
+  // const imageUrl = req.file.path.replace("\\", "/");
+  const imageUrl = req.body.imageUrl;
   const title = req.body.title;
-  const content = req.body.content;
+  const price = req.body.price;
+  const description = req.body.description;
   let creator;
-  const post = new Post({
+  const product = new Product({
     title: title,
-    content: content,
+    description: description,
+    price: price,
     imageUrl: imageUrl,
     creator: req.userId,
   });
-  post
+
+  product
     .save()
     .then((result) => {
       return User.findById(req.userId);
     })
     .then((user) => {
       creator = user;
-      user.posts.push(post);
+      user.products.push(product);
       return user.save();
     })
     .then((result) => {
       res.status(201).json({
-        message: "Post created successfully!",
-        post: post,
+        success: true,
+        message: "Product added successfully!",
+        product: product,
         creator: { _id: creator._id, name: creator.name },
       });
     })
     .catch((err) => {
       if (!err.statusCode) {
+        err.status = false;
         err.statusCode = 500;
       }
       next(err);
     });
 };
 
-exports.getPost = (req, res, next) => {
+/* exports.getPost = (req, res, next) => {
   const postId = req.params.postId;
   Post.findById(postId)
     .then((post) => {
@@ -99,7 +105,7 @@ exports.getPost = (req, res, next) => {
       }
       next(err);
     });
-};
+}; */
 
 exports.updatePost = (req, res, next) => {
   const postId = req.params.postId;
