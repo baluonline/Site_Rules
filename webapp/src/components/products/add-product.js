@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
 import { registerProduct } from "../_actions/product.actions";
+import Popup from "../utils/popup";
 
 const AddProduct = () => {
   const [product, setProduct] = useState({
@@ -10,18 +12,22 @@ const AddProduct = () => {
     imageUrl: "",
     price: "",
   });
+  const registeredProductSuccess = useSelector(
+    (state) => state.productRegistration.registeredProductSuccess
+  );
   const [submitted, setSubmitted] = useState(false);
+  const [addProductError, setAddProductError] = useState(null);
+  const [addProductSuccess, setAddProductSuccess] = useState(null);
+  const [isErrorDialog, setIsErrorDialog] = useState(false);
+
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
-
-  useEffect(() => {
-    console.log(token + "token is here");
-  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProduct((product) => ({ ...product, [name]: value }));
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
@@ -32,15 +38,32 @@ const AddProduct = () => {
       };
       registerProduct(data)
         .then((resp) => {
-          console.log(resp);
+          dispatch({ type: resp.type, payload: resp.message });
+          togglePopup(false);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          setAddProductError(err.response.data.message);
+          // console.log(err);
+          togglePopup(true);
+        });
     }
+  };
+  const togglePopup = (openDialog) => {
+    setIsErrorDialog(openDialog);
   };
   return (
     <div>
       <strong> Please enter your product details here </strong>
       <form name="form" onSubmit={handleSubmit}>
+        {registeredProductSuccess ? (
+          <div className="col-12">
+            <div className="alert alert" role="alert">
+              <h4 className="col-10 product-success">{registeredProductSuccess}</h4>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
         <div className="form-group">
           <label>Product Title</label>
           <input
@@ -116,6 +139,13 @@ const AddProduct = () => {
           </Link>
         </div>
       </form>
+      {isErrorDialog && (
+        <Popup
+          title="Add Product Failed"
+          content={addProductError}
+          showDialog={togglePopup}
+        />
+      )}
     </div>
   );
 };

@@ -60,15 +60,11 @@ export const registerProduct = (payload) => {
           resolve({
             type: productsConstants.PRODUCT_REGISTER_SUCCESS,
             status: results.data.success,
-            payload: results.data.message,
+            message: results.data.message,
           });
         })
         .catch((err) => {
-          resolve({
-            type: productsConstants.PRODUCT_REGISTER_FAILURE,
-            status: results.data.success,
-            payload: results.data.message,
-          });
+          reject(err);
         })
     );
   });
