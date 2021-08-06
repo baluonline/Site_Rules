@@ -2,7 +2,7 @@ import { productsConstants } from "../_constants";
 
 const initialState = {
   products: [],
-  registeredProductSuccess:false
+  registeredProductSuccess:null
 };
 export function productRegistration(state = initialState, action) {
   switch (action.type) {
@@ -16,7 +16,7 @@ export function productRegistration(state = initialState, action) {
         ...state,
         products: action.payload,
       };
-    case productsConstants.REGISTER_SUCCESS:
+    case productsConstants.PRODUCT_REGISTER_SUCCESS:
       return {
         ...state,
         registeredProductSuccess: action.payload,
