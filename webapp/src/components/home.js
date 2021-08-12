@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
 
 import Header from './header';
 // import ShoppingCards from './shoppingCards'
@@ -19,8 +19,9 @@ const RouteWithSubRoutes = (route) => {
 }
 
 const HomePage = () => {
+  const history = useHistory()
   return (
-    <Router>
+    <Router history={history}>
       <div className="container-fluid">
         <Header />
         {/*  <Switch>

@@ -22,37 +22,62 @@ const ViewProducts = () => {
     // const elements = ["one", "two", "three"];
     if (products.length > 0) {
       return (
-        <div>
+        <ul className="row align-items-center">
           {products.map((product, index) => {
             return (
-              <div key={index} className="card" style={{ width: "30em" }}>
+              <li key={index} className="card col-xl-3 products-card">
                 <div className="card-body">
-                  <h5 className="card-title">{product.title}</h5>
-                  <p className="card-text">{product.description}</p>
-                  <h3 className="card-text">${product.price}</h3>
-                  <a href="#" className="btn btn-primary">
-                    Add To Cart
-                  </a>
+                  <h5 className="row card-title product-title">
+                    {product.title}
+                  </h5>
+                  <p className="row card-text product-description">
+                    {product.description}
+                  </p>
+                  <div className="row product-image">
+                    <img
+                      src={product.imageUrl}
+                      alt="No image"
+                      aria-hidden="false"
+                      className="card-img w-100 shadow-1-strong align-middle rounded mb-4"
+                    ></img>
+                  </div>
+
+                  <div className="row"></div>
+                  <div className="row">
+                    <h3>${product.price}</h3>
+                  </div>
+
+                  <div className="row">
+                    <a href="#" className="btn btn-primary">
+                      Add To Estimations
+                    </a>
+                  </div>
                 </div>
-              </div>
+              </li>
             );
           })}
 
           {/* Products list goes here {JSON.stringify(products)} */}
-        </div>
+        </ul>
       );
     } else {
       return <div> products are not available</div>;
     }
   };
   return (
-    <div>
+    <div id="view-products">
       <h3>products</h3>
-      {products.length > 0 ? (
-        <ProductsList products={products} />
-      ) : (
-        "No items are available"
-      )}
+      <div className="container">
+        <div className="row">
+          <div className="col-xl-12">
+            {products.length > 0 ? (
+              <ProductsList products={products} />
+            ) : (
+              "No items are available"
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

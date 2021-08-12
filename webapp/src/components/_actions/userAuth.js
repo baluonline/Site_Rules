@@ -63,3 +63,20 @@ export const userSignup = (signupData) => {
       });
   });
 };
+
+export const userLogout = () => {
+  return new Promise((resolve, reject) => {
+    return axios
+      .post(basePath + "logout")
+      .then((res) => {
+        localStorage.removeItem("userId");
+        localStorage.removeItem("token");
+        resolve(res);
+        // return res;
+      })
+      .catch((err) => {
+        // return err;
+        reject(err);
+      });
+  });
+};

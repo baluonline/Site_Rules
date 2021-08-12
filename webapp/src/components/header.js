@@ -1,5 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
 import logo from "../../public/Bigger_bowl_logo.png";
 
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
@@ -9,6 +10,7 @@ import ViewProducts from "./products/view-products";
 import AddProduct from "./products/add-product";
 import Signin from "./auth/signin";
 import Signup from "./auth/signup";
+import Signout from "./auth/signout";
 
 const Header = () => {
   const userId = useSelector((state) => state.userAuth.userId);
@@ -69,7 +71,7 @@ const Header = () => {
             <ul className="navbar-nav mr-auto my-2 my-lg-0 col-lg-3">
               <li className="col-lg-4"></li>
               <li className="nav-item col-lg-4">
-                <Link className="nav-link" to="signin">
+                <Link className="nav-link" to="/signin">
                   Signin
                 </Link>
               </li>
@@ -80,14 +82,7 @@ const Header = () => {
               </li>
             </ul>
           ) : (
-            <ul className="navbar-nav mr-auto my-2 my-lg-0 col-lg-3">
-              <li className="col-lg-4"></li>
-              <li className="nav-item col-lg-4">
-                <Link className="nav-link" to="signin">
-                  Signout
-                </Link>
-              </li>
-            </ul>
+            <Signout />
           )}
         </div>
       </nav>

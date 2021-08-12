@@ -82,7 +82,7 @@ exports.login = (req, res, next) => {
           userId: loadUser._id.toString(),
         },
         "somesupersecretsecret",
-        { expiresIn: "1h" }
+        { expiresIn: "10m" }
       );
       res.status(200).json({
         success: true,
@@ -98,4 +98,14 @@ exports.login = (req, res, next) => {
       }
       next(err);
     });
+};
+
+exports.signout = (req, res, next) => {
+  const body = req.body;
+  res.status(200).json({
+    success: true,
+    message: "Successfully logged out",
+    token: null,
+    userId: null,
+  });
 };

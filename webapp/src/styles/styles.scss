@@ -60,6 +60,10 @@ a {
     color: white;
     margin-top: 0px;
 }
+.navbar-nav button {
+    font-size: larger;
+    font-weight: 600;
+}
 
 #bb-logo {
     height: 3em;
@@ -150,4 +154,38 @@ a {
     display: flex;
     position: absolute;
     justify-content: center;
+}
+
+#view-products {
+    .products-card {
+        margin: 1em;
+        height: 70vh;
+    }
+    .product-title {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 1.3;
+    }
+    .product-description {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 300;
+        font-size: 17px;
+        line-height: 1.3;
+    }
+    .product-image {
+        // height: 30vh;
+        div {
+            object-fit: cover;
+            object-position: center;
+        }
+    }
 }
