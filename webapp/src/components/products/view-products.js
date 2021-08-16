@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../_actions/product.actions";
+import { fetchProducts, deleteProduct } from "../_actions/product.actions";
 
 const ViewProducts = () => {
   const products = useSelector((state) => state.productRegistration.products);
@@ -18,6 +18,14 @@ const ViewProducts = () => {
         dispatch({ type: err.type, payload: err.payload });
       });
   }, []);
+  const deleteItem = (productId) => {
+    const token = localStorage.getItem("token");
+    const _deleteProduct = {
+      token,
+      productId,
+    };
+    deleteProduct(_deleteProduct);
+  };
   const ProductsList = ({ products }) => {
     // const elements = ["one", "two", "three"];
     if (products.length > 0) {
@@ -34,23 +42,35 @@ const ViewProducts = () => {
                     {product.description}
                   </p>
                   <div className="row product-image">
-                    <img
-                      src={product.imageUrl}
-                      alt="No image"
-                      aria-hidden="false"
-                      className="card-img w-100 shadow-1-strong align-middle rounded mb-4"
-                    ></img>
+                    <div>
+                      <img
+                        src={product.imageUrl}
+                        alt="No image"
+                        aria-hidden="false"
+                        className="card-img w-100 shadow-1-strong align-middle rounded mb-4"
+                      ></img>
+                    </div>
                   </div>
 
-                  <div className="row"></div>
-                  <div className="row">
+                  <div className="row my-2">
                     <h3>${product.price}</h3>
                   </div>
 
-                  <div className="row">
-                    <a href="#" className="btn btn-primary">
+                  <div className="row my-2">
+                    <a href="#" className="col-12 btn btn-primary">
                       Add To Estimations
                     </a>
+                  </div>
+                  <div className="row">
+                    <button
+                      href="#"
+                      className="col-12 btn btn-danger"
+                      onClick={() => {
+                        deleteItem(product._id);
+                      }}
+                    >
+                      Delete Product
+                    </button>
                   </div>
                 </div>
               </li>

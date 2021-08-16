@@ -34,38 +34,47 @@ export const registerProduct = (payload) => {
   };
   const url = "http://localhost:4000/feed/product/";
   return new Promise((resolve, reject) => {
-    return (
-      axios
-        .post(
-          url,
-          {
-            imageUrl: payload.product.imageUrl,
-            title: payload.product.title,
-            description: payload.product.description,
-            price: payload.product.price,
-          },
-          {
-            headers: {
-              Authorization: "Bearer " + payload.token,
-            },
-          }
-        )
-        /*    axios
-      .post(basePath + "product", data, {
-        headers: {
-          Authorization: "Bearer " + payload,
+    return axios
+      .post(
+        basePath + "/product",
+        {
+          imageUrl: payload.product.imageUrl,
+          title: payload.product.title,
+          description: payload.product.description,
+          price: payload.product.price,
         },
-      }) */
-        .then((results) => {
-          resolve({
-            type: productsConstants.PRODUCT_REGISTER_SUCCESS,
-            status: results.data.success,
-            message: results.data.message,
-          });
-        })
-        .catch((err) => {
-          reject(err);
-        })
-    );
+        {
+          headers: {
+            Authorization: "Bearer " + payload.token,
+          },
+        }
+      )
+
+      .then((results) => {
+        resolve({
+          type: productsConstants.PRODUCT_REGISTER_SUCCESS,
+          status: results.data.success,
+          message: results.data.message,
+        });
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+export const deleteProduct = (payload) => {
+  const productId = payload.productId;
+  return new Promise((resolve, reject) => {
+    return axios
+      .delete(basePath + "product/" + productId, {
+        headers: {
+          Authorization: "Bearer " + payload.token,
+        },
+      })
+      .then((resp) => {
+        console.log(resp);
+      })
+      .catch((error) => console.log(error));
   });
 };
