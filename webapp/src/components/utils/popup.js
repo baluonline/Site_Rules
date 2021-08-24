@@ -21,7 +21,7 @@ const Popup = (props) => {
         <div className="modal-content">
           <div className="modal-header">
             <i
-              class="fa fa-exclamation-triangle text-danger"
+              className="fa fa-exclamation-triangle text-danger"
               aria-hidden="true"
             ></i>
             <h5 className="modal-title text-danger">{props.title}</h5>

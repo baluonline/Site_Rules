@@ -19,6 +19,13 @@ router.post(
   feedController.addProduct
 );
 
+
+//DELETE /feed/deleteproduct/{id}
+router.delete(
+  "/product/:productId",
+  isAuth,
+  feedController.deleteProduct
+);
 // router.get("/post/:postId", isAuth, feedController.getPost);
 
 // router.put(
