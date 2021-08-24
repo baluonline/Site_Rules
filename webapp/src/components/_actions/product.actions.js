@@ -73,8 +73,12 @@ export const deleteProduct = (payload) => {
         },
       })
       .then((resp) => {
-        console.log(resp);
+        // console.log(resp);
+        resolve(resp);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        reject(error);
+        console.log(error);
+      });
   });
 };

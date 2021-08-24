@@ -52,93 +52,103 @@ const AddProduct = () => {
     setIsErrorDialog(openDialog);
   };
   return (
-    <div>
-      <strong> Please enter your product details here </strong>
-      <form name="form" onSubmit={handleSubmit}>
-        {registeredProductSuccess ? (
-          <div className="col-12">
-            <div className="alert alert" role="alert">
-              <h4 className="col-10 product-success">{registeredProductSuccess}</h4>
+    <div
+      id="add-products"
+      className="conatiner d-flex justify-content-center mt-5"
+    >
+      <div className="col-6 products-container">
+        <h3 className="col-12 d-flex justify-content-center">
+          Register Products
+        </h3>
+        <form className="col-12" name="form" onSubmit={handleSubmit}>
+          {registeredProductSuccess ? (
+            <div className="col-12">
+              <div className="alert alert" role="alert">
+                <h4 className="col-10 product-success">
+                  {registeredProductSuccess}
+                </h4>
+              </div>
             </div>
+          ) : (
+            ""
+          )}
+          <div className="form-group">
+            <label>Product Title</label>
+            <input
+              type="text"
+              name="title"
+              value={product.title || ""}
+              onChange={handleChange}
+              className={
+                "form-control" +
+                (submitted && !product.title ? " is-invalid" : "")
+              }
+            />
+            {submitted && !product.title && (
+              <div className="invalid-feedback">Product Title is required</div>
+            )}
           </div>
-        ) : (
-          ""
-        )}
-        <div className="form-group">
-          <label>Product Title</label>
-          <input
-            type="text"
-            name="title"
-            value={product.title || ""}
-            onChange={handleChange}
-            className={
-              "form-control" +
-              (submitted && !product.title ? " is-invalid" : "")
-            }
-          />
-          {submitted && !product.title && (
-            <div className="invalid-feedback">Product Title is required</div>
-          )}
-        </div>
-        <div className="form-group">
-          <label>Product Description</label>
-          <input
-            type="text"
-            name="description"
-            value={product.description || ""}
-            onChange={handleChange}
-            className={
-              "form-control" +
-              (submitted && !product.description ? " is-invalid" : "")
-            }
-          />
-          {submitted && !product.description && (
-            <div className="invalid-feedback">
-              Product Description is required
-            </div>
-          )}
-        </div>
-        <div className="form-group">
-          <label>Product Image url</label>
-          <input
-            type="text"
-            name="imageUrl"
-            value={product.imageUrl || ""}
-            onChange={handleChange}
-            className={
-              "form-control" +
-              (submitted && !product.imageUrl ? " is-invalid" : "")
-            }
-          />
-          {submitted && !product.imageUrl && (
-            <div className="invalid-feedback">
-              Product Image Url is required
-            </div>
-          )}
-        </div>
-        <div className="form-group">
-          <label>Estimated Price</label>
-          <input
-            type="text"
-            name="price"
-            value={product.price || ""}
-            onChange={handleChange}
-            className={
-              "form-control" +
-              (submitted && !product.price ? " is-invalid" : "")
-            }
-          />
-          {submitted && !product.price && (
-            <div className="invalid-feedback">Product Price is required</div>
-          )}
-        </div>
-        <div className="form-group">
-          <button className="btn btn-primary">Register</button>
-          <Link to="/signin" className="btn btn-link">
-            Cancel
-          </Link>
-        </div>
-      </form>
+          <div className="form-group">
+            <label>Product Description</label>
+            <input
+              type="text"
+              name="description"
+              value={product.description || ""}
+              onChange={handleChange}
+              className={
+                "form-control" +
+                (submitted && !product.description ? " is-invalid" : "")
+              }
+            />
+            {submitted && !product.description && (
+              <div className="invalid-feedback">
+                Product Description is required
+              </div>
+            )}
+          </div>
+          <div className="form-group">
+            <label>Product Image url</label>
+            <input
+              type="text"
+              name="imageUrl"
+              value={product.imageUrl || ""}
+              onChange={handleChange}
+              className={
+                "form-control" +
+                (submitted && !product.imageUrl ? " is-invalid" : "")
+              }
+            />
+            {submitted && !product.imageUrl && (
+              <div className="invalid-feedback">
+                Product Image Url is required
+              </div>
+            )}
+          </div>
+          <div className="form-group">
+            <label>Estimated Price</label>
+            <input
+              type="text"
+              name="price"
+              value={product.price || ""}
+              onChange={handleChange}
+              className={
+                "form-control" +
+                (submitted && !product.price ? " is-invalid" : "")
+              }
+            />
+            {submitted && !product.price && (
+              <div className="invalid-feedback">Product Price is required</div>
+            )}
+          </div>
+          <div className="form-group">
+            <button className="btn btn-primary">Register</button>
+            <Link to="/signin" className="btn btn-danger mx-3">
+              Cancel
+            </Link>
+          </div>
+        </form>
+      </div>
+
       {isErrorDialog && (
         <Popup
           title="Add Product Failed"

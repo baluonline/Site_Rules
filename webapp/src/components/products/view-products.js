@@ -1,14 +1,20 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, useStore } from "react-redux";
 import { fetchProducts, deleteProduct } from "../_actions/product.actions";
 
 const ViewProducts = () => {
-  const products = useSelector((state) => state.productRegistration.products);
+  const products = useSelector((state) =>
+    state.productRegistration.products.filter((product) => product._id)
+  );
   const dispatch = useDispatch();
+  const store = useStore();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log(token + "token is here");
+    getProducts(token);
+    console.log(store.getState());
+  }, []);
+  const getProducts = (token) => {
     fetchProducts(token)
       .then((resp) => {
         dispatch({ type: resp.type, payload: resp.payload });
@@ -17,21 +23,30 @@ const ViewProducts = () => {
         console.log("no products");
         dispatch({ type: err.type, payload: err.payload });
       });
-  }, []);
+  };
   const deleteItem = (productId) => {
     const token = localStorage.getItem("token");
     const _deleteProduct = {
       token,
       productId,
     };
-    deleteProduct(_deleteProduct);
+    deleteProduct(_deleteProduct)
+      .then((res) => {
+        if (res) {
+          getProducts(token);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   const ProductsList = ({ products }) => {
-    // const elements = ["one", "two", "three"];
-    if (products.length > 0) {
+    const _products = products.filter((product) => product._id);
+    if (_products.length > 0) {
       return (
         <ul className="row align-items-center">
-          {products.map((product, index) => {
+          {/* <p>No of products {products.length}</p> */}
+          {_products.map((product, index) => {
             return (
               <li key={index} className="card col-xl-3 products-card">
                 <div className="card-body">
