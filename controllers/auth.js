@@ -14,6 +14,7 @@ exports.signup = (req, res, next) => {
   const email = req.body.email;
   const name = req.body.name;
   const password = req.body.password;
+  const role = req.body.role;
   User.findOne({ email: email })
     .then((user) => {
       loadUser = user;
@@ -26,6 +27,8 @@ exports.signup = (req, res, next) => {
         res.status(409).json({
           message: "User is already existed, Please try again",
           userId: loadUser._id,
+          token: loadUser.token,
+          role: loadUser.role,
         });
       } else {
         bcrypt
@@ -35,6 +38,7 @@ exports.signup = (req, res, next) => {
               email: email,
               password: hashedPwd,
               name: name,
+              role: role,
               status: "active",
             });
             return user.save();
@@ -89,6 +93,7 @@ exports.login = (req, res, next) => {
         message: null,
         token: token,
         userId: loadUser._id.toString(),
+        role: loadUser.role,
       });
     })
 

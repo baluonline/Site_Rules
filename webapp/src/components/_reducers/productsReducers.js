@@ -3,14 +3,10 @@ import { productsConstants } from "../_constants";
 const initialState = {
   products: [],
   registeredProductSuccess: null,
+  estimatedProducts: [],
 };
 export function productRegistration(state = initialState, action) {
   switch (action.type) {
-    /*   case productsConstants.PRODUCT:
-      return {
-        ...state,
-        products: state.products.concat(action.payload),
-      }; */
     case productsConstants.FETCH_PRODUCTS:
       return {
         ...state,
@@ -20,6 +16,11 @@ export function productRegistration(state = initialState, action) {
       return {
         ...state,
         registeredProductSuccess: action.payload,
+      };
+    case productsConstants.PRODUCT_ESTIMATIONS:
+      return {
+        ...state,
+        estimatedProducts: [...state.estimatedProducts, action.payload],
       };
     default:
       return state;

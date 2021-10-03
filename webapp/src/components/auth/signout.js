@@ -22,7 +22,7 @@ const Signout = () => {
     <ul className="navbar-nav mr-auto my-2 my-lg-0 col-lg-3">
       <li className="col-lg-4"></li>
       <li className="nav-item col-lg-4">
-        <button type="button" className="btn nav-link" onClick={logout}>
+        <button type="button" className="btn nav-link header-nav-link" onClick={logout}>
           Signout
         </button>
       </li>

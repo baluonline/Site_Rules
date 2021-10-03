@@ -11,12 +11,14 @@ const Signup = () => {
     emailAddress: "",
     password: "",
     confirmPassword: "",
+    selectedRole:"Guest",
+    roles: ["Guest", "Elite", "Admin"],
   });
   const [submitted, setSubmitted] = useState(false);
   const [enabledSubmitted, setEnabledSubmitted] = useState(false);
   const [signupError, setSignupError] = useState(null);
 
-  const { fullname, emailAddress, password, confirmPassword } = inputs;
+  const { fullname, emailAddress, password, confirmPassword, roles,selectedRole } = inputs;
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -33,14 +35,14 @@ const Signup = () => {
       return false;
     }
   };
-  /*   const checkConfirmPassword = (confirmPassword, password) => {
-    if (password.lenght >= 8 && confirmPassword === password) {
-      setEnabledSubmitted(true);
-      return true;
-    } else {
-      setEnabledSubmitted(false);
-      return false;
-    }
+  /*   const renderRolesList = (roles) => {
+    roles.map((role) => {
+      return (
+        <option key={role} value={role}>
+          {role}
+        </option>
+      );
+    });
   }; */
 
   const handleSignup = (e) => {
@@ -49,6 +51,7 @@ const Signup = () => {
       email: emailAddress,
       password: password,
       name: fullname,
+      role:selectedRole
     };
     setSubmitted(true);
     userSignup(data)
@@ -67,12 +70,9 @@ const Signup = () => {
 
   return (
     <div
-      className="signup-page"
-      style={{
-        background: `url(${signup})`,
-      }}
+      className="signup-page col-12"
     >
-      <form name="form" className="col-4 signup-form" onSubmit={handleSignup}>
+      <form name="form" className="col-6 signup-form" onSubmit={handleSignup}>
         {signupError ? (
           <div className="alert alert-danger" role="alert">
             <p className="col-12">Error message : {signupError}</p>
@@ -122,6 +122,7 @@ const Signup = () => {
             value={password}
             onChange={handleChange}
             placeholder="Password"
+            autoComplete="off"
             className={
               "form-control" + (submitted && !password ? "is-invalid" : "")
             }
@@ -141,6 +142,7 @@ const Signup = () => {
             name="confirmPassword"
             placeholder="Confirm Password"
             value={confirmPassword}
+            autoComplete="off"
             onChange={handleChange}
             className={
               "form-control" +
@@ -156,8 +158,25 @@ const Signup = () => {
             <div className="invalid-feedback">Password is required</div>
           )}
         </div>
+        <div className="input-group ">
+          <select
+            className="form-control"
+            aria-label="Select Role"
+            name="selectedRole"
+            value={selectedRole}
+            label="Select Role"
+            onChange={handleChange}
+          >
+            {roles.map((role) => (
+              <option key={role} value={role}>
+                {role}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div className=" col-12 form-group signup-btn-container">
-          <button className="col-10 btn btn-primary signup-btn" type="submit">
+          <button className="col-3 btn btn-primary signup-btn" type="submit">
             Submit
           </button>
         </div>
