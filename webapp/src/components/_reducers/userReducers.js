@@ -3,6 +3,7 @@ import { userConstants } from "../_constants";
 const initialState = {
   userToken: null,
   userId: null,
+  role: null,
 };
 export function userAuth(state = initialState, action) {
   switch (action.type) {
@@ -11,10 +12,12 @@ export function userAuth(state = initialState, action) {
         ...state,
         userToken: action.payload,
       };
-    case userConstants.USER_ID:
+    case userConstants.USER_INFO:
       return {
         ...state,
-        userId: action.payload,
+        userId: action.payload.userId,
+        userToken: action.payload.token,
+        role: action.payload.role,
       };
     default:
       return state;

@@ -53,7 +53,7 @@ const Signin = () => {
         <div className="row">
           <h3 className="col-11 signin-banner">Signin</h3>
           <Link to="/signup" className="col-1 mt-1">
-            <i className=" fa fa-times-circle" aria-hidden="true"></i>
+            <i className="ml-3 fa fa-times-circle text-danger" aria-hidden="true"></i>
           </Link>
           {signinError ? (
             <div className="col-12">

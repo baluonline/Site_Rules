@@ -54,7 +54,7 @@ const AddProduct = () => {
   return (
     <div
       id="add-products"
-      className="conatiner d-flex justify-content-center mt-5"
+      className="conatiner col-12 d-flex justify-content-center mt-5"
     >
       <div className="col-6 products-container">
         <h3 className="col-12 d-flex justify-content-center">
