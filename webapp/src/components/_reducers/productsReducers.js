@@ -4,6 +4,7 @@ const initialState = {
   products: [],
   registeredProductSuccess: null,
   estimatedProducts: [],
+  showInvoice: false,
 };
 export function productRegistration(state = initialState, action) {
   switch (action.type) {
@@ -21,6 +22,11 @@ export function productRegistration(state = initialState, action) {
       return {
         ...state,
         estimatedProducts: [...state.estimatedProducts, action.payload],
+      };
+    case productsConstants.SHOW_INVOICE:
+      return {
+        ...state,
+        showInvoice: action.payload,
       };
     default:
       return state;

@@ -177,7 +177,17 @@ a {
     justify-content: center;
 }
 
+.invoice-products-container {
+    height: 70vh;
+    overflow-y: overlay;
+}
 #view-products {
+    list-style: none;
+    .card-img-top {
+        width: 100%;
+        height: 15vw;
+        object-fit: cover;
+    }
     .products-card {
         margin: 1em;
         height: 43em;
@@ -212,40 +222,141 @@ a {
         }
     }
     .estimations-btn {
-        font-size: 30px;
+        left: 0;
+        font-size: 22px;
         border-radius: 50px;
+        height: fit-content;
     }
     .plus-icon {
         font-size: 35px;
     }
+    .estmate-count {
+        margin-top: 11px;
+        padding-left: 61px;
+    }
 }
 
-#estimation-container{
-    height: 100em;
+#estimation-container {
+    height: 95%;
     background-color: white;
+    .print-estimations {
+        position: absolute;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        left: 8%;
+        background: black;
+        color: white;
+        border-radius: 25px;
+        height: 59px;
+        font-size: 20px;
+    }
+    .print-icon {
+        font-size: 30px;
+    }
 }
 
-.side-drawer { 
+.side-drawer {
     height: 100%;
     background: white;
     position: fixed;
     top: 0;
     right: 0;
-    width: 40%;
+    width: 30%;
     z-index: 200;
-    box-shadow: 1px 0px 7px rgba(0,0,0,0.5); 
+    box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
     transform: translateX(100%);
     transition: transform 0.3s ease-out;
- }
- .side-drawer.open {
+}
+.open {
     transform: translateX(0);
- }
- .backdrop {
+}
+.backdrop {
     position: fixed;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 100;
     top: 0;
     right: 0;
-  }
+}
+
+// invoice nav bar
+
+button {
+    width: 86px;
+    height: 40px;
+    background-color: #f9cb11;
+    border: none;
+    border-radius: 6px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+    outline: 0;
+    transition: all 0.25s ease;
+
+    &:hover {
+        opacity: 0.8;
+        transition: all 0.25s ease;
+    }
+}
+
+.menu {
+    background: #34495e;
+    height: 100vh;
+    width: 250px;
+    opacity: 0;
+    float: right;
+    position: absolute;
+    visibility: hidden;
+    transition: all 0.25s ease;
+    transform: translateX(50%);
+
+    a {
+        color: #fff;
+        text-decoration: none;
+        display: block;
+        padding: 20px;
+    }
+
+    ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        li {
+            font-size: 16px;
+            border-bottom: 1px solid #fff;
+            transition: all 0.25s ease;
+            animation: fadeInRight 0.25s ease forwards;
+            opacity: 0;
+
+            &:hover {
+                opacity: 0.8;
+                transition: all 0.25s ease;
+                background: #000;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.active {
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.25s ease;
+    transform: translateX(0);
+}
+
+@keyframes fadeInRight {
+    0% {
+        opacity: 0;
+        left: 20%;
+    }
+    100% {
+        opacity: 1;
+        left: 0;
+    }
+}

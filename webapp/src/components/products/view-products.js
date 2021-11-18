@@ -17,6 +17,7 @@ const ViewProducts = () => {
   const submitEstimations = (product) => {
     // console.log("estimations :" + product);
     dispatch({ type: productsConstants.PRODUCT_ESTIMATIONS, payload: product });
+    dispatch({ type: productsConstants.SHOW_INVOICE, payload: true });
   };
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -63,7 +64,7 @@ const ViewProducts = () => {
                   key={index}
                   className="card col-xl-3 col-lg-4 products-card"
                 >
-                  <div className="card-body">
+                  <div className="card-image-top">
                     <div className="row product-image">
                       <img
                         src={product.imageUrl}
@@ -72,36 +73,54 @@ const ViewProducts = () => {
                         className="card-img w-100 shadow-1-strong align-middle rounded mb-4"
                       ></img>
                     </div>
+                  </div>
+                  <div className="card-body">
                     <div className="row my-2">
+                      <div className="col-6">
+                        <h3 className="card-title">${product.price}</h3>
+                      </div>
+                    </div>
+                    <div className="row my-2">
+                      {/* <div className="col-5"> */}
                       <button
                         type="submit"
                         href="#"
                         onClick={() => submitEstimations(product)}
-                        className="col-6 btn btn-primary text-capitalize estimations-btn"
+                        className="btn col-5 btn-primary text-capitalize estimations-btn"
                       >
                         <i className="fa fa-plus ml-n3 mr-2 plus-icon"></i>
                         Estimate
                       </button>
-                      <div className="col-6">
-                        <h3>${product.price}</h3>
+                      {/* </div> */}
+                      <div className="col-6 estmate-count">
+                        <input
+                          id="spinner"
+                          type="number"
+                          value="1"
+                          onChange={() => console.log("increased")}
+                          min="1"
+                          max="10"
+                          step="1"
+                          data-decimals="0"
+                        />
                       </div>
                     </div>
-                    <h5 className="row card-title product-title">
+                    <h5 className="col-11 card-title product-title">
                       {product.title}
                     </h5>
-
-                    <p className="row card-text product-description">
+                    <p className="col-12 card-text product-description">
                       {product.description}
                     </p>
                     {role?.toLowerCase() === "elite" ? (
                       <div className="row">
                         <button
-                          href="#"
-                          className="col-12 btn btn-danger"
+                          className="col-6 btn btn-danger"
                           onClick={() => {
                             deleteItem(product._id);
                           }}
                         >
+                          {/* <i className="fas fa-trash-alt"></i> */}
+                          <i className="fa fa-trash mx-2" aria-hidden="true"></i>
                           Delete Product
                         </button>
                       </div>
