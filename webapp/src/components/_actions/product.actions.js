@@ -31,6 +31,7 @@ export const registerProduct = (payload) => {
     title: payload.product.title,
     price: payload.product.price,
     description: payload.product.description,
+    quantity: payload.product.quantity,
   };
   const url = "http://localhost:4000/feed/product/";
   return new Promise((resolve, reject) => {
@@ -42,6 +43,7 @@ export const registerProduct = (payload) => {
           title: payload.product.title,
           description: payload.product.description,
           price: payload.product.price,
+          quantity: payload.product.quantity,
         },
         {
           headers: {
@@ -82,3 +84,4 @@ export const deleteProduct = (payload) => {
       });
   });
 };
+ 

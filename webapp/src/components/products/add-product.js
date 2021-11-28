@@ -11,6 +11,7 @@ const AddProduct = () => {
     description: "",
     imageUrl: "",
     price: "",
+    quantity:1
   });
   const registeredProductSuccess = useSelector(
     (state) => state.productRegistration.registeredProductSuccess

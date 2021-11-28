@@ -36,11 +36,20 @@ const Invoice = () => {
   };
   const subTotalPrice = (products) => {
     let _subTotal = 0;
-    estimatedProducts.map((item) => (_subTotal = _subTotal + item.price));
+    estimatedProducts.map((item) => {
+      _subTotal = _subTotal + item.price * item.quantity;
+    });
     return _subTotal.toLocaleString("en-US", {
       style: "currency",
       currency: "USD",
     });
+  };
+  const totalQuanty = () => {
+    let quantity = 0;
+    estimatedProducts.map((item) => {
+      quantity = item.quantity + quantity;
+    });
+    return quantity;
   };
   return (
     <div className={showInvoice ? "side-drawer open" : "side-drawer"}>
@@ -51,18 +60,18 @@ const Invoice = () => {
             height: "88px",
           }}
         >
-          <div class="p-2 bd-highlight">
+          <div className="p-2 bd-highlight">
             {" "}
             <div className="d-block align-middle">
               <span className="d-flex align-middle text-white">
                 <h2 className="text-white" style={{ lineHeight: "2.2" }}>
-                  Estimations Summary({estimatedProducts.length})
+                  Estimations Summary({totalQuanty()})
                 </h2>
               </span>
             </div>
           </div>
 
-          <div class="p-2 bd-highlight">
+          <div className="p-2 bd-highlight">
             <span
               className="btn"
               onClick={() => handleClick(menuStatus)}
@@ -85,7 +94,10 @@ const Invoice = () => {
                   className="d-flex list-group-item justify-content-between"
                 >
                   <h5 className="col-7 card-title">{product.title}</h5>
-                  <h5 className="col-4 card-title">{product.price}</h5>
+                  <h5 className="col-2 card-title">{product.quantity}</h5>
+                  <h5 className="col-3 card-title">
+                    {parseFloat(product.price * product.quantity).toFixed(2)}
+                  </h5>
                 </li>
               );
             })}
