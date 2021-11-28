@@ -9,6 +9,9 @@ const ViewProducts = () => {
   const products = useSelector((state) =>
     state.productRegistration.products.filter((product) => product._id)
   );
+  const estimatedProducts = useSelector(
+    (state) => state.productRegistration.estimatedProducts
+  );
   const role = useSelector((state) => state.userAuth.role);
 
   const dispatch = useDispatch();
@@ -16,7 +19,11 @@ const ViewProducts = () => {
 
   const submitEstimations = (product) => {
     // console.log("estimations :" + product);
-    dispatch({ type: productsConstants.PRODUCT_ESTIMATIONS, payload: product });
+
+    dispatch({
+      type: productsConstants.PRODUCT_ESTIMATIONS,
+      payload: product,
+    });
     dispatch({ type: productsConstants.SHOW_INVOICE, payload: true });
   };
   useEffect(() => {
@@ -96,7 +103,7 @@ const ViewProducts = () => {
                         <input
                           id="spinner"
                           type="number"
-                          value="1"
+                          value={product.quantity}
                           onChange={() => console.log("increased")}
                           min="1"
                           max="10"
@@ -120,7 +127,10 @@ const ViewProducts = () => {
                           }}
                         >
                           {/* <i className="fas fa-trash-alt"></i> */}
-                          <i className="fa fa-trash mx-2" aria-hidden="true"></i>
+                          <i
+                            className="fa fa-trash mx-2"
+                            aria-hidden="true"
+                          ></i>
                           Delete Product
                         </button>
                       </div>

@@ -52,11 +52,13 @@ exports.addProduct = (req, res, next) => {
   const title = req.body.title;
   const price = req.body.price;
   const description = req.body.description;
+  const quantity = req.body.quantity;
   let creator;
   const product = new Product({
     title: title,
     description: description,
     price: price,
+    quantity:quantity,
     imageUrl: imageUrl,
     creator: req.userId,
   });
