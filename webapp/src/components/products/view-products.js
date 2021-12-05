@@ -32,7 +32,7 @@ const ViewProducts = () => {
     console.log(store.getState());
   }, []);
   const getProducts = (token) => {
-    fetchProducts(token)
+    fetchProducts()
       .then((resp) => {
         dispatch({ type: resp.type, payload: resp.payload });
       })
@@ -121,7 +121,7 @@ const ViewProducts = () => {
                     {role?.toLowerCase() === "elite" ? (
                       <div className="row">
                         <button
-                          className="col-6 btn btn-danger"
+                          className="col-12 btn btn-danger delete-product_btn"
                           onClick={() => {
                             deleteItem(product._id);
                           }}

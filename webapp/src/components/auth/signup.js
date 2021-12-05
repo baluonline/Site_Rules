@@ -11,14 +11,21 @@ const Signup = () => {
     emailAddress: "",
     password: "",
     confirmPassword: "",
-    selectedRole:"Guest",
+    selectedRole: "Guest",
     roles: ["Guest", "Elite", "Admin"],
   });
   const [submitted, setSubmitted] = useState(false);
   const [enabledSubmitted, setEnabledSubmitted] = useState(false);
   const [signupError, setSignupError] = useState(null);
 
-  const { fullname, emailAddress, password, confirmPassword, roles,selectedRole } = inputs;
+  const {
+    fullname,
+    emailAddress,
+    password,
+    confirmPassword,
+    roles,
+    selectedRole,
+  } = inputs;
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -51,7 +58,7 @@ const Signup = () => {
       email: emailAddress,
       password: password,
       name: fullname,
-      role:selectedRole
+      role: selectedRole,
     };
     setSubmitted(true);
     userSignup(data)
@@ -69,9 +76,7 @@ const Signup = () => {
   };
 
   return (
-    <div
-      className="signup-page col-12"
-    >
+    <div className="signup-page col-12">
       <form name="form" className="col-6 signup-form" onSubmit={handleSignup}>
         {signupError ? (
           <div className="alert alert-danger" role="alert">
@@ -175,14 +180,18 @@ const Signup = () => {
           </select>
         </div>
 
-        <div className=" col-12 form-group signup-btn-container">
-          <button className="col-3 btn btn-primary signup-btn" type="submit">
+        <div className=" col-6 form-group signup-btn-container">
+          <button className="col-10 btn btn-primary signup-btn" type="submit">
             Submit
           </button>
         </div>
         <div className=" col-12 form-group signup-btn-container">
           Already a member?
-          <Link to="/signin" style={{ textDecoration: "none", color: "blue" }}>
+          <Link
+            to="/signin"
+            className="signup-btn-container"
+            style={{ textDecoration: "none", color: "blue" }}
+          >
             Signin
           </Link>
         </div>

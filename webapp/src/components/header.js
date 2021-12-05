@@ -3,7 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 import logo from "../../public/Bigger_bowl_logo.png";
 
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Link,
+  IndexRoute,
+} from "react-router-dom";
 // import RoutesPages from '../routes'
 
 import ViewProducts from "./products/view-products";
@@ -11,6 +17,7 @@ import AddProduct from "./products/add-product";
 import Signin from "./auth/signin";
 import Signup from "./auth/signup";
 import Signout from "./auth/signout";
+import LandingPage from "./products/landingpage";
 
 const Header = () => {
   const userId = useSelector((state) => state.userAuth.userId);
@@ -36,7 +43,7 @@ const Header = () => {
             className="img-fluid  float-left img-thumbnail"
             id="bb-logo"
           />
-          <a className="navbar-brand col-lg-2 col-md-2 col-xl-2" href="#">
+          <a className="navbar-brand col-lg-2 col-md-2 col-xl-2" href="/">
             Bigger Bowl
           </a>
           <button
@@ -86,9 +93,14 @@ const Header = () => {
           </div>
         </nav>
       </div>
-      
+
       <section className="row">
         <Switch>
+        <Route
+            path="/"
+            exact
+            render={(props) => <LandingPage {...props} />}
+          ></Route>
           <Route
             path="/signin"
             exact

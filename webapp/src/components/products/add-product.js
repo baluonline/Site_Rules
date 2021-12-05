@@ -58,9 +58,9 @@ const AddProduct = () => {
       className="conatiner col-12 d-flex justify-content-center mt-5"
     >
       <div className="col-6 products-container">
-        <h3 className="col-12 d-flex justify-content-center">
+        <h1 className="col-12 d-flex justify-content-center">
           Register Products
-        </h3>
+        </h1>
         <form className="col-12" name="form" onSubmit={handleSubmit}>
           {registeredProductSuccess ? (
             <div className="col-12">
@@ -142,8 +142,8 @@ const AddProduct = () => {
             )}
           </div>
           <div className="form-group">
-            <button className="btn btn-primary">Register</button>
-            <Link to="/signin" className="btn btn-danger mx-3">
+            <button className="col-4 btn btn-primary register_btn">Register</button>
+            <Link to="/signin" className="btn btn-danger col-4 mx-3 cancel-register-product">
               Cancel
             </Link>
           </div>

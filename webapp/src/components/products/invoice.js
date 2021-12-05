@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector, useStore } from "react-redux";
-
+import jsPDF from "jspdf";
 import { productsConstants } from "../_constants";
 
 const Invoice = () => {
@@ -50,6 +50,16 @@ const Invoice = () => {
       quantity = item.quantity + quantity;
     });
     return quantity;
+  };
+
+  const saveInvoicePdf = () => {
+    const doc = new jsPDF();
+    doc.html(
+      `<html><head><title>Estimations</title></head><body>` +
+        document.getElementById("estimation-container").innerHTML +
+        `</body></html>`
+    );
+    doc.save("Estimations.pdf");
   };
   return (
     <div className={showInvoice ? "side-drawer open" : "side-drawer"}>
@@ -110,7 +120,10 @@ const Invoice = () => {
             <h3 className="mr-3">{subTotalPrice(estimatedProducts)}</h3>
           </div>
 
-          <div className="btn col-10 print-estimations">
+          <div
+            className="btn col-10 print-estimations"
+            onClick={saveInvoicePdf}
+          >
             <i className="fa fa-print mx-3 print-icon"></i>Print Estimations
           </div>
         </div>
