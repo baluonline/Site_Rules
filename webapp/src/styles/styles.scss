@@ -30,6 +30,8 @@ a {
 .btn {
     font-weight: 700;
     font-size: medium;
+    box-shadow: none;
+    border-radius: 4px;
 }
 
 .welcome {
@@ -118,10 +120,13 @@ a {
         .login-button-container {
             display: flex;
             justify-content: center;
+            font-size: 25px;
+            font-weight: 400;
             .login-btn {
                 border: 1px solid;
                 border-radius: 35px;
                 font-size: 25px;
+                height: 2em;
             }
         }
     }
@@ -153,14 +158,32 @@ a {
     .signup-btn-container {
         display: flex;
         justify-content: center;
+        font-size: 25px;
+        font-weight: 400;
         .signup-btn {
             border: 1px solid;
             border-radius: 35px;
             font-size: 25px;
+            height: fit-content;
         }
     }
 }
+.signout_btn {
+    margin-top: -19px;
+    position: relative;
+    align-items: center;
+    display: flex;
+}
 
+.delete-product_btn {
+    left: 10px;
+    font-size: 23px;
+    border-radius: 9px;
+    height: 53px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
 #add-products {
     .products-container {
         border: 4px solid black;
@@ -169,6 +192,28 @@ a {
         h3 {
             font-family: system-ui;
         }
+    }
+    .register_btn {
+        left: 10px;
+        margin-left: 10px;
+        align-items: center;
+        border-width: 0px;
+        font-size: 28px;
+        font-weight: 800;
+        height: 2em;
+        display: inline-block;
+        transition: all 0.3s ease-out 0s;
+    }
+    .cancel-register-product {
+        right: 10px;
+        position: absolute;
+        align-items: center;
+        border-width: 0px;
+        font-size: 28px;
+        font-weight: 800;
+        height: 2em;
+        display: inline-block;
+        transition: all 0.3s ease-out 0s;
     }
 }
 .product-success {
@@ -359,4 +404,9 @@ button {
         opacity: 1;
         left: 0;
     }
+}
+
+#landing-page {
+    height: 80vh;
+    background-image: path("C:\Fullstack\portal-ruler\webapp\src\images\Home1.jpg");
 }

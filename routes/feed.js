@@ -6,7 +6,7 @@ const isAuth = require("..//middleware/is-auth");
 const router = express.Router();
 
 // GET /feed/products
-router.get("/products", isAuth, feedController.getProducts);
+router.get("/products", feedController.getProducts);
 
 // POST /feed/product
 router.post(

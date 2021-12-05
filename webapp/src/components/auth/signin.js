@@ -108,8 +108,8 @@ const Signin = () => {
             <div className="invalid-feedback">Password is required</div>
           )}
         </div>
-        <div className="form-group login-button-container col-12">
-          <button className="btn btn-primary col-10 login-btn">Login</button>
+        <div className="form-group login-button-container col-6">
+          <button className="btn btn-primary col-12 login-btn">Login</button>
         </div>
         <div className="col-12 form-group login-button-container">
           Not a member?
